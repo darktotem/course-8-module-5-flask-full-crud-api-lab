@@ -18,9 +18,9 @@ events = [
     Event(2, "Python Workshop")
 ]
 
-# TODO: Task 1 - Define the Problem
 next_id = 3
 
+# TODO: Task 1 - Define the Problem
 def find_event(event_id):
     #Helper: return the Event with this id, or None if not found.
     for event in events:
@@ -45,8 +45,7 @@ def create_event():
     next_id += 1
     return jsonify(new_event.to_dict()), 201
 
-# TODO: Task 1 - Define the Problem
-    
+# TODO: Task 1 - Define the Problem 
 # Update the title of an existing event
 @app.route("/events/<int:event_id>", methods=["PATCH"])
 def update_event(event_id):
