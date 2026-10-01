@@ -1,4 +1,4 @@
-from venv import Flask, jsonify, request
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -20,7 +20,6 @@ events = [
 
 next_id = 3
 
-# TODO: Task 1 - Define the Problem
 def find_event(event_id):
     #Helper: return the Event with this id, or None if not found.
     for event in events:
@@ -28,6 +27,7 @@ def find_event(event_id):
             return event
     return None
 
+# TODO: Task 1 - Define the Problem
 # Create a new event from JSON input
 @app.route("/events", methods=["POST"])
 def create_event():
@@ -45,20 +45,20 @@ def create_event():
     next_id += 1
     return jsonify(new_event.to_dict()), 201
 
+
 # TODO: Task 1 - Define the Problem 
 # Update the title of an existing event
 @app.route("/events/<int:event_id>", methods=["PATCH"])
 def update_event(event_id):
     # TODO: Task 2 - Design and Develop the Code
     event = find_event(event_id)
-    # TODO: Task 3 - Implement the Loop and Process Each Element
     if event is None:
-        return jsonify({"error": f"Event with id {event_id} not found"}), 404  
+        return jsonify({"error": f"Event with id {event_id} not found"}), 404
+    # TODO: Task 3 - Implement the Loop and Process Each Element
     data = request.get_json(silent=True)
-    
-    # TODO: Task 4 - Return and Handle Results
     if not data or not data.get("title"):
         return jsonify({"error": "Missing required field: title"}), 400
+    # TODO: Task 4 - Return and Handle Results
     event.title = data["title"]
     return jsonify(event.to_dict()), 200
 
@@ -73,7 +73,7 @@ def delete_event(event_id):
             return jsonify({"error": f"Event with id {event_id} not found"}), 404
     # TODO: Task 4 - Return and Handle Results
     events.remove(event)
-    return jsonify({"message": f"Event {event_id} deleted"}), 200
+    return "", 204
 
 if __name__ == "__main__":
     app.run(debug=True)
